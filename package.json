@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/ryanjgill/neopixel_clock#readme",
   "dependencies": {
-    "moment": "^2.20.1"
+    "moment": "^2.20.1",
+    "node-fadecandy": "^2.0.1"
   }
 }
