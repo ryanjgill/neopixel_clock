@@ -18,7 +18,7 @@ let DARK_BLUE = [45, 41, 135]
 let TAN = [238, 190, 138]
 let OFF_WHITE = [60, 60, 30]
 
-let HOUR_COLOR = RED
+let HOUR_COLOR = PURPLE
 let MINUTES_COLOR = GREEN
 let SECONDS_COLOR = BLUE
 let BACKGROUND_COLOR = BLACK
@@ -31,7 +31,7 @@ let DURATION = 1000
 //let DURATION = 1000/60
 
 setInterval(() => {
-  let mTime = moment(new Date())
+  let mTime = moment(new Date()).subtract(6, 'hours')
   //let mTime = moment(new Date(ticks))
 
   let minutes = mTime.minutes()
