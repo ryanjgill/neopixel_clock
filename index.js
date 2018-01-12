@@ -34,9 +34,10 @@ setInterval(() => {
   let mTime = moment(new Date())
   //let mTime = moment(new Date(ticks))
 
-  let hours = mTime.hours()%12*5
   let minutes = mTime.minutes()
   let seconds = mTime.seconds()
+  let hours = Math.floor((mTime.hours()%12+(minutes/60))*5)
+  
   fill.withColor(colorArray, BACKGROUND_COLOR, PIXEL_COUNT)
   fill.hours(colorArray, hours, HOUR_COLOR)
   fill.minutes(colorArray, minutes, MINUTES_COLOR)

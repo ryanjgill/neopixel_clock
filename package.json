@@ -1,28 +1,20 @@
 {
   "name": "neopixel_clock",
-  "version": "1.0.0",
-  "description": "Clock using a 60 count neopixel strip and microcontroller.",
+  "version": "0.0.0",
+  "description": "clock using a 60 count neopixel strip and microcontroller",
   "main": "index.js",
-  "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ryanjgill/neopixel_clock.git"
-  },
-  "keywords": [
-    "neopixel"
-  ],
-  "author": "Ryan Gill",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ryanjgill/neopixel_clock/issues"
-  },
-  "homepage": "https://github.com/ryanjgill/neopixel_clock#readme",
   "dependencies": {
     "moment": "^2.20.1",
     "node-fadecandy": "^2.0.1"
-  }
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "https://github.com/ryanjgill/neopixel_clock.git",
+  "keywords": [
+    "Tessel"
+  ],
+  "license": "MIT",
+  "readme": "A bare bones Tessel 2 blinky script."
 }
