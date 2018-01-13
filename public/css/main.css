@@ -11,7 +11,6 @@ body {
   height: 100%;
 	padding: 0;
   margin: 0;
-  overflow: hidden;
 }
 
 .controls {
@@ -28,6 +27,7 @@ body {
 }
 
 .control label {
+  font-weight: 100;
   user-select: none;
   margin-bottom: 1rem;
 }
@@ -37,6 +37,7 @@ body {
 }
 
 h2 {
+  font-family: 'Raleway Dots', cursive;
   text-align: center;
   color: #7a8288;
   font-weight: 400;
