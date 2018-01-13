@@ -4,11 +4,19 @@
   "description": "clock using a 60 count neopixel strip and microcontroller",
   "main": "index.js",
   "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "ip": "^1.1.5",
     "moment": "^2.20.1",
-    "node-fadecandy": "^2.0.1"
+    "morgan": "^1.9.0",
+    "node-fadecandy": "^2.0.1",
+    "pug": "^2.0.0-rc.4",
+    "socket.io": "^2.0.4"
   },
   "devDependencies": {},
   "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": "https://github.com/ryanjgill/neopixel_clock.git",
