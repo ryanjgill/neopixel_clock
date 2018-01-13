@@ -89,6 +89,7 @@ fc.on(FadeCandy.events.COLOR_LUT_READY, function () {
 
 io.on("connection", socket => {
   socket.emit('color-changed', {
+    background: BACKGROUND_COLOR,
     hours: HOURS_COLOR,
     minutes: MINUTES_COLOR,
     seconds: SECONDS_COLOR
@@ -96,12 +97,14 @@ io.on("connection", socket => {
 
   // user has selected new color
   socket.on('color-selected', color => {
+    BACKGROUND_COLOR = color.background
     HOURS_COLOR = color.hours
     MINUTES_COLOR = color.minutes
     SECONDS_COLOR = color.seconds
 
     // broadcast back to any other clients 
     socket.broadcast.emit('color-changed', {
+      background: BACKGROUND_COLOR,
       hours: HOURS_COLOR,
       minutes: MINUTES_COLOR,
       seconds: SECONDS_COLOR

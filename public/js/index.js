@@ -6,20 +6,25 @@ new Vue({
     <div class="controls">
       <div class="control">
         <label>Hours</label>
-        <input type="color" @change="colorSelected" refs="hours" v-model="hours"/>
+        <input type="color" @change="colorSelected" v-model="hours"/>
       </div>
       <div class="control">
         <label>Minutes</label>
-        <input type="color" @change="colorSelected" refs="minutes" v-model="minutes"/>
+        <input type="color" @change="colorSelected" v-model="minutes"/>
       </div>
       <div class="control">
         <label>Seconds</label>
-        <input type="color" @change="colorSelected" refs="seconds" v-model="seconds"/>
+        <input type="color" @change="colorSelected" v-model="seconds"/>
+      </div>
+      <div class="control">
+        <label>Background</label>
+        <input type="color" @change="colorSelected" v-model="background"/>
       </div>
     </div>
 	</div>
 	`,
 	data: {
+    background: '#000000',
     hours: '',
     minutes: '',
     seconds: ''
@@ -27,10 +32,14 @@ new Vue({
 	computed: {
     colors() {
       return {
+        background: [this.backgroundRgb.r, this.backgroundRgb.g, this.backgroundRgb.b],
         hours: [this.hoursRgb.r, this.hoursRgb.g, this.hoursRgb.b],
         minutes: [this.minutesRgb.r, this.minutesRgb.g, this.minutesRgb.b],
         seconds: [this.secondsRgb.r, this.secondsRgb.g, this.secondsRgb.b]
       }
+    },
+    backgroundRgb() {
+      return this.hexToRgb(this.background)
     },
     hoursRgb() {
       return this.hexToRgb(this.hours)
@@ -51,6 +60,7 @@ new Vue({
       this.hours = this.rgbToHex(data.hours)
       this.minutes = this.rgbToHex(data.minutes)
       this.seconds = this.rgbToHex(data.seconds)
+      this.background = this.rgbToHex(data.background)
     },
     colorSelected() {
       this.socket.emit('color-selected', this.colors)
