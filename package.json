@@ -21,8 +21,8 @@
   },
   "repository": "https://github.com/ryanjgill/neopixel_clock.git",
   "keywords": [
-    "Tessel"
+    "NeoPixels"
   ],
   "license": "MIT",
-  "readme": "A bare bones Tessel 2 blinky script."
+  "readme": "NeoPixel Clock"
 }
