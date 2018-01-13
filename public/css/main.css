@@ -45,3 +45,20 @@ h2 {
   line-height: 1.25;
   margin: 1rem 0;
 }
+
+@media screen and (max-width: 480px) {
+  .controls {
+    flex-direction: column;
+  }
+  .controls .control {
+    flex-direction: row;
+    align-items: center;
+    margin: 0 1rem 0.5rem 1rem;
+  }
+
+  .controls input {
+    margin-bottom: 1rem;
+    height: 2rem;
+    width: 100%;
+  }
+}
