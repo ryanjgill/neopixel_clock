@@ -10,7 +10,11 @@ body {
   font-size: 2em;
   height: 100%;
 	padding: 0;
-  margin: 0;
+  margin: 1rem;
+}
+
+hr {
+  margin: 2rem;
 }
 
 .controls {
@@ -46,7 +50,35 @@ h2 {
   margin: 1rem 0;
 }
 
+.themes {
+  display: flex;
+  align-items: center;
+}
+
+.themes div {
+  flex: 1 1 auto;
+}
+
+.themes div img{
+  display: block;
+  max-width: 100px;
+  margin: 0 auto;
+}
+
+.themes div img:hover{
+  cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  .control label {
+    font-size:0.8em;
+  }
+}
+
 @media screen and (max-width: 480px) {
+  h2 {
+    font-size: 2.4em;
+  }
   .controls {
     flex-direction: column;
   }

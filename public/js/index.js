@@ -1,3 +1,18 @@
+const THEMES = {
+  astros:  {
+    colors: ['#002D62', '#EB6E1F', '#666666'],
+    image: 'images/astros_icon.png'
+  },
+  rockets: {
+    colors: ['#CE1141', '#FDB927', '#666666'],
+    image: 'images/rockets_icon.png'
+  },
+  texans:  {
+    colors: ['#091F2C', '#A6192E', '#666666'],
+    image: 'images/texans_icon.png'
+  }
+}
+
 new Vue({
 	el: '#main',
 	template: `
@@ -21,13 +36,20 @@ new Vue({
         <input type="color" @change="colorSelected" v-model="background"/>
       </div>
     </div>
+    <hr>
+    <div class="themes">
+      <div v-for="theme in themes">
+        <img :src="theme.image" @click="themeSelected(theme)"/>
+      </div>
+    </div>
 	</div>
 	`,
 	data: {
     background: '#000000',
     hours: '',
     minutes: '',
-    seconds: ''
+    seconds: '',
+    themes: THEMES
 	},
 	computed: {
     colors() {
@@ -76,6 +98,13 @@ new Vue({
     },  
     rgbToHex([r, g, b]) {
       return "#" + this.toHex(r) + this.toHex(g) + this.toHex(b)
+    },
+    themeSelected(theme) {
+      this.hours = theme.colors[0]
+      this.minutes = theme.colors[1]
+      this.seconds = theme.colors[2]
+      this.background = '#000000'
+      this.colorSelected()
     },
     toHex(c) {
       let hex = c.toString(16);
