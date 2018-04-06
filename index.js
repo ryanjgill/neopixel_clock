@@ -11,6 +11,11 @@ const serverIP = `${ip.address()}:${PORT}`
 const moment = require('moment')
 const FadeCandy = require('node-fadecandy')
 const fill = require('./utils/fill')
+const five = require('johnny-five');
+const Raspi = require('raspi-io');
+const board = new five.Board({
+  io: new Raspi()
+});
 
 // express setup
 app.set('view engine', 'pug')
@@ -46,6 +51,8 @@ let HOURS_COLOR = PURPLE
 let MINUTES_COLOR = GREEN
 let SECONDS_COLOR = BLUE
 let BACKGROUND_COLOR = BLACK
+let TIMER_DURATION = 5000
+let sleep = false
 
 let DURATION = 1000
 const PIXEL_COUNT = 60
@@ -55,6 +62,11 @@ let colorArray = new Array(PIXEL_COUNT)
 fill.withColor(colorArray, BACKGROUND_COLOR, PIXEL_COUNT)
 
 setInterval(() => {
+  if (sleep) { 
+    fill.withColor(colorArray, BLACK, PIXEL_COUNT)
+    return
+  }
+
   let mTime = moment(new Date()).subtract(6, 'hours')
 
   let minutes = mTime.minutes()
@@ -84,10 +96,11 @@ fc.on(FadeCandy.events.COLOR_LUT_READY, function () {
   let clock_interval = setInterval(function () {
     fc.send([].concat.apply([], colorArray))
     frame++
+    console.log(colorArray[0])
   }, DURATION)
 })
 
-io.on("connection", socket => {
+io.on('connection', socket => {
   socket.emit('color-changed', {
     background: BACKGROUND_COLOR,
     hours: HOURS_COLOR,
@@ -109,6 +122,22 @@ io.on("connection", socket => {
       minutes: MINUTES_COLOR,
       seconds: SECONDS_COLOR
     })
+  })
+})
+
+// Johnny-five motion sensor feature
+let timerId = null
+
+board.on("ready", function() {
+  let motion = new five.Motion(2)
+
+  motion.on("motionstart", function() {
+    clearTimeout(timerId)
+    sleep = false
+    // No motion so lets start a timer and clear the clock when it ends
+    timerId = setTimeout(() => {
+      sleep = true
+    }, TIMER_DURATION)
   })
 })
 
