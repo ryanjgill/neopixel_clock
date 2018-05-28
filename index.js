@@ -131,23 +131,28 @@ io.on('connection', socket => {
     alwaysOn = value
 
     // broadcast back to any other clients 
-    socket.broadcast.emit('always-on', value)
+    socket.broadcast.emit('always-on', alwaysOn)
   })
 })
 
 // Johnny-five motion sensor feature
 let timerId = null
 
+let motionTimer = function (timerId) {
+  clearTimeout(timerId)
+  sleep = false
+  // No motion so lets start a timer and clear the clock when it ends
+  timerId = setTimeout(() => {
+    sleep = true
+  }, TIMER_DURATION)
+}
+
 board.on("ready", function() {
   let motion = new five.Motion(2)
 
   motion.on("motionstart", function() {
-    clearTimeout(timerId)
-    sleep = false
-    // No motion so lets start a timer and clear the clock when it ends
-    timerId = setTimeout(() => {
-      sleep = true
-    }, TIMER_DURATION)
+    console.log('motion detected!')
+    motionTimer(timerId)
   })
 })
 
