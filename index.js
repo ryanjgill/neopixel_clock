@@ -51,7 +51,7 @@ let HOURS_COLOR = PURPLE
 let MINUTES_COLOR = GREEN
 let SECONDS_COLOR = BLUE
 let BACKGROUND_COLOR = BLACK
-let TIMER_DURATION = 5000
+let TIMER_DURATION = 30000
 let sleep = false
 let alwaysOn = false
 
@@ -148,7 +148,7 @@ let motionTimer = function (timerId) {
 }
 
 board.on("ready", function() {
-  let motion = new five.Motion(2)
+  let motion = new five.Motion(0)
 
   motion.on("motionstart", function() {
     console.log('motion detected!')
