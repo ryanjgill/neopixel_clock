@@ -12,7 +12,7 @@ const THEMES = {
     image: 'images/texans_icon.png'
   },
   mardi_gras: {
-    colors: ['#B086F4', '#4EEC6C', '#00A7FF'],
+    colors: ['#AC2BB9', '#4EEC6C', '#00A7FF'],
     image: 'images/mardi_gras_mask_icon.png'
   }
 }
