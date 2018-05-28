@@ -53,6 +53,7 @@ let SECONDS_COLOR = BLUE
 let BACKGROUND_COLOR = BLACK
 let TIMER_DURATION = 5000
 let sleep = false
+let alwaysOn = false
 
 let DURATION = 1000
 const PIXEL_COUNT = 60
@@ -62,7 +63,7 @@ let colorArray = new Array(PIXEL_COUNT)
 fill.withColor(colorArray, BACKGROUND_COLOR, PIXEL_COUNT)
 
 setInterval(() => {
-  if (sleep) { 
+  if (sleep && !alwaysOn) { 
     fill.withColor(colorArray, BLACK, PIXEL_COUNT)
     return
   }
@@ -107,6 +108,7 @@ io.on('connection', socket => {
     minutes: MINUTES_COLOR,
     seconds: SECONDS_COLOR
   })
+  socket.emit('always-on', alwaysOn)
 
   // user has selected new color
   socket.on('color-selected', color => {
@@ -122,6 +124,15 @@ io.on('connection', socket => {
       minutes: MINUTES_COLOR,
       seconds: SECONDS_COLOR
     })
+  })
+
+  // always on bypass
+  socket.on('always-on', value => {
+    console.log('always-on was fired')
+    alwaysOn = value
+
+    // broadcast back to any other clients 
+    socket.broadcast.emit('always-on', value)
   })
 })
 

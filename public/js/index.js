@@ -10,6 +10,10 @@ const THEMES = {
   texans:  {
     colors: ['#091F2C', '#A6192E', '#666666'],
     image: 'images/texans_icon.png'
+  },
+  mardi_gras: {
+    colors: ['#B086F4', '#4EEC6C', '#00A7FF'],
+    image: 'images/mardi_gras_mask_icon.png'
   }
 }
 
@@ -41,10 +45,15 @@ new Vue({
       <div v-for="theme in themes">
         <img :src="theme.image" @click="themeSelected(theme)"/>
       </div>
+      <div>
+        <img v-if="!alwaysOn" src="images/no_motion.png" class="motion" @click="toggleMotion" title="Toggle Motion"/>
+        <img v-else src="images/motion.png" class="motion" @click="toggleMotion" title="Toggle Motion"/>
+      </div>
     </div>
 	</div>
 	`,
 	data: {
+    alwaysOn: true,
     background: '#000000',
     hours: '',
     minutes: '',
@@ -52,6 +61,9 @@ new Vue({
     themes: THEMES
 	},
 	computed: {
+    backgroundRgb() {
+      return this.hexToRgb(this.background)
+    },
     colors() {
       return {
         background: [this.backgroundRgb.r, this.backgroundRgb.g, this.backgroundRgb.b],
@@ -59,9 +71,6 @@ new Vue({
         minutes: [this.minutesRgb.r, this.minutesRgb.g, this.minutesRgb.b],
         seconds: [this.secondsRgb.r, this.secondsRgb.g, this.secondsRgb.b]
       }
-    },
-    backgroundRgb() {
-      return this.hexToRgb(this.background)
     },
     hoursRgb() {
       return this.hexToRgb(this.hours)
@@ -75,9 +84,13 @@ new Vue({
 	},
 	created() {
     this.socket = io();
-		this.socket.on('color-changed', this.colorChange)
+    this.socket.on('color-changed', this.colorChange)
+    this.socket.on('always-on', this.alwaysOnChange)
   },
   methods: {
+    alwaysOnChange(value) {
+      this.alwaysOn = value
+    },
     colorChange(data) {
       this.hours = this.rgbToHex(data.hours)
       this.minutes = this.rgbToHex(data.minutes)
@@ -105,6 +118,10 @@ new Vue({
       this.seconds = theme.colors[2]
       this.background = '#000000'
       this.colorSelected()
+    },
+    toggleMotion() {
+      this.alwaysOn = !this.alwaysOn
+      this.socket.emit('always-on', this.alwaysOn)
     },
     toHex(c) {
       let hex = c.toString(16);

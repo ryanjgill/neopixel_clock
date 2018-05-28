@@ -50,23 +50,32 @@ h2 {
   margin: 1rem 0;
 }
 
-.themes {
+.themes, .toggles {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
-.themes div {
+.themes div, .toggles div {
   flex: 1 1 auto;
 }
 
-.themes div img{
+.themes div img, .toggles div img{
   display: block;
   max-width: 100px;
   margin: 0 auto;
 }
 
-.themes div img:hover{
+.themes div img:hover, .toggles div img:hover{
   cursor: pointer;
+}
+
+.toggles img.yellow path {
+  fill: yellow;
+}
+
+svg path {
+  fill: #0f0;
 }
 
 @media screen and (max-width: 600px) {
