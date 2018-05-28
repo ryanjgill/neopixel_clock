@@ -97,7 +97,6 @@ fc.on(FadeCandy.events.COLOR_LUT_READY, function () {
   let clock_interval = setInterval(function () {
     fc.send([].concat.apply([], colorArray))
     frame++
-    console.log(colorArray[0])
   }, DURATION)
 })
 
