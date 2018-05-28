@@ -14,7 +14,8 @@ const fill = require('./utils/fill')
 const five = require('johnny-five');
 const Raspi = require('raspi-io');
 const board = new five.Board({
-  io: new Raspi()
+  io: new Raspi(),
+  repl: false
 });
 
 // express setup
