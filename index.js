@@ -102,9 +102,9 @@ fc.on(FadeCandy.events.COLOR_LUT_READY, function () {
   }, DURATION)
 })
 
-function emitColorChange(socket) {
-  // broadcast back to any other clients 
-  socket.broadcast.emit('color-changed', {
+function emitColorChange(socket, allSockets) {
+  // broadcast to all clients 
+  io.sockets.emit('color-changed', {
     background: BACKGROUND_COLOR,
     hours: HOURS_COLOR,
     minutes: MINUTES_COLOR,
@@ -136,7 +136,6 @@ io.on('connection', socket => {
   socket.on('pick-random-colors', () => {
     getRandomColors()
       .then(colors => {
-        BACKGROUND_COLOR = BLACK
         HOURS_COLOR = colors[0]
         MINUTES_COLOR = colors[1]
         SECONDS_COLOR = colors[2]
