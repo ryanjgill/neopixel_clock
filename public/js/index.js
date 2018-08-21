@@ -46,6 +46,9 @@ new Vue({
         <img :src="theme.image" @click="themeSelected(theme)"/>
       </div>
       <div>
+        <img src="images/colorWheel.png" @click="pickRandomColors" title="Pick Random Colors"/>
+      </div>
+      <div>
         <img v-if="alwaysOn" src="images/no_motion.png" class="motion" @click="toggleMotion" title="Toggle Motion"/>
         <img v-else src="images/motion.png" class="motion" @click="toggleMotion" title="Toggle Motion"/>
       </div>
@@ -108,6 +111,9 @@ new Vue({
           g: parseInt(result[2], 16),
           b: parseInt(result[3], 16)
       } : null
+    },
+    pickRandomColors() {
+      this.socket.emit('pick-random-colors')
     },  
     rgbToHex([r, g, b]) {
       return "#" + this.toHex(r) + this.toHex(g) + this.toHex(b)

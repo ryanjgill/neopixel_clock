@@ -10,6 +10,7 @@ const PORT = 3000
 const serverIP = `${ip.address()}:${PORT}`
 const moment = require('moment')
 const FadeCandy = require('node-fadecandy')
+const getRandomColors = require('./getRandomColors')
 const fill = require('./utils/fill')
 const five = require('johnny-five');
 const Raspi = require('raspi-io');
@@ -101,6 +102,16 @@ fc.on(FadeCandy.events.COLOR_LUT_READY, function () {
   }, DURATION)
 })
 
+function emitColorChange(socket) {
+  // broadcast back to any other clients 
+  socket.broadcast.emit('color-changed', {
+    background: BACKGROUND_COLOR,
+    hours: HOURS_COLOR,
+    minutes: MINUTES_COLOR,
+    seconds: SECONDS_COLOR
+  })
+}
+
 io.on('connection', socket => {
   socket.emit('color-changed', {
     background: BACKGROUND_COLOR,
@@ -118,12 +129,23 @@ io.on('connection', socket => {
     SECONDS_COLOR = color.seconds
 
     // broadcast back to any other clients 
-    socket.broadcast.emit('color-changed', {
-      background: BACKGROUND_COLOR,
-      hours: HOURS_COLOR,
-      minutes: MINUTES_COLOR,
-      seconds: SECONDS_COLOR
-    })
+    emitColorChange(socket)
+  })
+
+  // user selected pick random colors
+  socket.on('pick-random-colors', () => {
+    getRandomColors()
+      .then(colors => {
+        BACKGROUND_COLOR = BLACK
+        HOURS_COLOR = colors[0]
+        MINUTES_COLOR = colors[1]
+        SECONDS_COLOR = colors[2]
+
+        emitColorChange(socket)
+      })
+      .catch(error => {
+        console.log(error)
+      })
   })
 
   // always on bypass

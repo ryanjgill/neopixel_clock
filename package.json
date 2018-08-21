@@ -12,6 +12,7 @@
     "morgan": "^1.9.0",
     "node-fadecandy": "^2.0.1",
     "pug": "^2.0.0-rc.4",
+    "request-promise": "^4.2.2",
     "socket.io": "^2.0.4"
   },
   "devDependencies": {},
