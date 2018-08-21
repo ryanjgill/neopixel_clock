@@ -10,7 +10,7 @@ let options = {
 };
 
 module.exports = () => {
-  Request(options)
+  return Request(options)
     .then(data => data.result.slice(0, 3))
     .catch(error => console.log(error))
 }
